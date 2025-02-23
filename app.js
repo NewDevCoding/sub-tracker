@@ -1,10 +1,13 @@
 import express from 'express';
 
-import { PORT } from './config/env.js';
+import { PORT, DB_URI } from './config/env.js';
 
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
 import subscriptionRouter from './routes/subscriptions.routes.js';
+
+import connectToDatabase from './database/mongoose.js';
+
 
 const app = express();
 
@@ -16,8 +19,10 @@ app.get('/', (req, res) => {
     res.send('Hello Worl');
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+
+    await connectToDatabase()
 })
 
 export default app;
