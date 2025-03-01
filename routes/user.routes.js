@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { getUsers } from '../controllers/user.controller.js';
-import { getUser } from '../controllers/user.controller.js';
+import { getUsers, getUser } from '../controllers/user.controller.js';
+import { authorize } from '../middlewares/auth.middleware.js';
 const userRouter = Router();
 
+// GET routes
 userRouter.get('/', getUsers)
 
-userRouter.get('/:id', getUser)
+// we add the middleware before the main function in the specific route where we want authorization
+userRouter.get('/:id', authorize, getUser)
 
+// POST routes
 userRouter.post('/', (req, res) => {
     res.send({
         title: 'Create new user'

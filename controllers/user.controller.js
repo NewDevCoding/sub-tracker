@@ -15,7 +15,10 @@ export const getUsers = async (req, res, next) => {
 }
 
 export const getUser = async (req, res, next) => {
+
+
     try {
+        // changed the params in the .find method to an object, {_id: req.params.id} from just being req.params.id
         const user = await User.find({_id: req.params.id}).select('-password');
 
         if(!user) {
