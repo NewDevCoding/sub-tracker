@@ -16,7 +16,7 @@ export const getUsers = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
     try {
-        const user = await User.find(req.params.id).select('password');
+        const user = await User.find({_id: req.params.id}).select('-password');
 
         if(!user) {
             const error = new Error('User not found');
